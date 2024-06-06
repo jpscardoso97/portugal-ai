@@ -49,3 +49,12 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+.chat-output{
+    width:100%!important;
+    height: 400px
+}
+
+.chat-input {
+    width: 92%;
+}

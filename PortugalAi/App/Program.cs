@@ -1,8 +1,12 @@
-using App.Components;
+using App.HttpClients;
+using App.Services;
+using App.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// TODO: Change when multiple sessions are implemented
+builder.Services.AddSingleton<IChatService>(sp => new ChatService(new HttpClient(new LlmHttpRequestHandler())));
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
