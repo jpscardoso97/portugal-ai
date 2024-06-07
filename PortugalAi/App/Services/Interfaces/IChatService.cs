@@ -4,5 +4,5 @@ public interface IChatService
 {
     Task<string> GetInitialResponse(string initialInput);
     
-    Task<string> GetCompletion(string input);
+    Task<string> GetCompletionAsync(string input);
 }
