@@ -14,7 +14,7 @@ builder.Services
         configure.AddConsole();
         configure.SetMinimumLevel(LogLevel.Information);
     })
-    .AddSingleton<IKernelBuilder>(sp =>
+    .AddTransient<IKernelBuilder>(sp =>
     {
         var kb = Kernel.CreateBuilder();
         kb.Services.AddLogging(c => c.SetMinimumLevel(LogLevel.Trace));
@@ -23,8 +23,8 @@ builder.Services
 
         return kb;
     })
-    .AddSingleton<ISemanticKernelService, SemanticKernelService>()
-    .AddSingleton<IChatService, ChatService>();
+    .AddTransient<ISemanticKernelService, SemanticKernelService>()
+    .AddTransient<IChatService, ChatService>();
     
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

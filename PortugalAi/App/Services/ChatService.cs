@@ -22,7 +22,7 @@ public class ChatService : IChatService
 
     public async Task<string> GetInitialResponse(string initialInput)
     {
-        var location = await _semanticKernelService.ExtractLocationFromInputAsync(_location);
+        var location = await _semanticKernelService.ExtractLocationFromInputAsync(initialInput);
 
         // TODO: Validate location
         if (string.IsNullOrWhiteSpace(location))

@@ -1,5 +1,6 @@
 namespace App.Services;
 
+using Extensions;
 using Interfaces;
 using Plugins;
 
@@ -11,7 +12,7 @@ public class SemanticKernelService : ISemanticKernelService
 {
     private readonly ILogger _logger;
     private readonly Kernel _kernel;
-    private readonly KernelPlugin _prompts;
+    private readonly KernelFunction _locationFunction;
     private readonly IChatCompletionService _chatCompletionService;
 
     private const string SystemMessage = """
@@ -29,12 +30,15 @@ public class SemanticKernelService : ISemanticKernelService
         _logger = logger;
         _kernel = kernelBuilder.Build();
         _kernel.ImportPluginFromType<RecommenderPlugin>();
-        _prompts = _kernel.ImportPluginFromPromptDirectory("Prompts");   
+        // Create a template for chat with settings
+        _locationFunction = _kernel.GetLocationFunction();
+        //_prompts = _kernel.ImportPluginFromPromptDirectory("Prompts");   
         _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
     }
 
     public async Task<string?> GetCompletionAsync(string prompt)
     {
+        _chatHistory.AddUserMessage(prompt);
         var completions = await _chatCompletionService.GetChatMessageContentsAsync(_chatHistory, Settings, _kernel);
 
         var contents = completions.FirstOrDefault()?.Content;
@@ -45,7 +49,6 @@ public class SemanticKernelService : ISemanticKernelService
         }
         else
         {
-            _chatHistory.AddUserMessage(prompt);
             _chatHistory.AddAssistantMessage(contents);
         }
 
@@ -54,7 +57,7 @@ public class SemanticKernelService : ISemanticKernelService
 
     public async Task<string?> ExtractLocationFromInputAsync(string input)
     {
-        var l = await _kernel.InvokeAsync<string>(_prompts["GetLocation"],
+        var l = await _kernel.InvokeAsync<string>(_locationFunction,
             new()
             {
                 { "input", input }

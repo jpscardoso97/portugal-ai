@@ -7,7 +7,7 @@ public class RecommenderPlugin
 {
     private static readonly IDictionary<string, string> LocationDict = new Dictionary<string, string>()
     {
-        { "porto", "The Francesinha of the restaurant 'Tomar de Sal' is very good" },
+        { "porto", "The Francesinha of the restaurant 'Tomar de Sal' in Porto is very good" },
         { "aveiro", "One of the best places to try Ovos Moles of the pastry maker 'Pastelaria Ramos'" }
     };
     
@@ -16,7 +16,7 @@ public class RecommenderPlugin
     public static string GetRecommendations(
         [Description("The target location")] string location)
     {
-        var key = location.ToLower().Trim();
+        var key = location?.ToLower().Trim() ?? string.Empty;
 
         LocationDict.TryGetValue(key, out var recs);
 
