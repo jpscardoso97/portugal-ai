@@ -1,0 +1,50 @@
+@page "/chat"
+@rendermode InteractiveServer
+
+@using System.Text
+@using global::App.Services.Interfaces
+
+@inject IChatService IChatService
+@inject NavigationManager Navigation
+
+<h1>Portugal AI Chatbot</h1>
+
+<div>
+    <textarea disabled="disabled" class="chat-output" @bind="_conversationHistory"></textarea>
+</div>
+<div>
+    <textarea @bind="_inputMessage" placeholder="How can I help you?" class="chat-input"></textarea>
+    @if (_loading)
+    {
+        <button disabled="disabled" class="btn btn-primary">Generating response</button>
+    }
+    else{
+        <button class="btn btn-primary" @onclick="SendMessage">Click me</button>
+    }
+</div>
+
+@code
+{
+    // State variables
+    private bool _loading;
+    
+    private string? _conversationHistory = "Welcome to Portugal AI, I'm here to give you recommendations about the portuguese cuisine and places to visit";
+    private string? _inputMessage = string.Empty;
+    private readonly StringBuilder _conversation = new();
+
+    private async Task SendMessage()
+    {
+        _loading = true;
+        var response = await IChatService.GetInitialResponse(_inputMessage);
+        _loading = false;
+        
+        _conversation.AppendLine("Question: " + _inputMessage);
+
+        _conversation.AppendLine("Answer: " + response);
+        _conversation.AppendLine();
+
+        _conversationHistory = _conversation.ToString();
+
+        _inputMessage = string.Empty;
+    }
+}

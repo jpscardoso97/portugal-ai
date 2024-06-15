@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <PackageReference Include="Humanizer" Version="2.14.1" />
+      <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.6" />
       <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.13.0" />
       <PackageReference Include="Microsoft.SemanticKernel.Core" Version="1.13.0" />
     </ItemGroup>

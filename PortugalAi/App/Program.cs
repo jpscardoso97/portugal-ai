@@ -1,8 +1,31 @@
-using App.Components;
+using App.HttpClients;
+using App.Services;
+using App.Services.Interfaces;
+using Microsoft.SemanticKernel;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services
+    // TODO: Change when multiple sessions are implemented
+    .AddLogging(configure =>
+    {
+        configure.ClearProviders();
+        configure.AddConsole();
+        configure.SetMinimumLevel(LogLevel.Information);
+    })
+    .AddTransient<IKernelBuilder>(sp =>
+    {
+        var kb = Kernel.CreateBuilder();
+        kb.Services.AddLogging(c => c.SetMinimumLevel(LogLevel.Trace));
+        kb.AddOpenAIChatCompletion(modelId: "local-llm", apiKey: "no-api-key-needed-for-local-llm",
+            httpClient: new HttpClient(new LlmHttpRequestHandler()));
+
+        return kb;
+    })
+    .AddTransient<ISemanticKernelService, SemanticKernelService>()
+    .AddTransient<IChatService, ChatService>();
+    
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
