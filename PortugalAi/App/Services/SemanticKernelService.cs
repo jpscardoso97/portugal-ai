@@ -30,9 +30,7 @@ public class SemanticKernelService : ISemanticKernelService
         _logger = logger;
         _kernel = kernelBuilder.Build();
         _kernel.ImportPluginFromType<RecommenderPlugin>();
-        // Create a template for chat with settings
-        _locationFunction = _kernel.GetLocationFunction();
-        //_prompts = _kernel.ImportPluginFromPromptDirectory("Prompts");   
+        _locationFunction = _kernel.GetLocationFunction(); 
         _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
     }
 
