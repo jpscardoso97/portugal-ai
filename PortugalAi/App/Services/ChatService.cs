@@ -1,5 +1,6 @@
 namespace App.Services;
 
+using System.Text;
 using Interfaces;
 
 public class ChatService : IChatService
@@ -8,16 +9,21 @@ public class ChatService : IChatService
     [
         "aveiro", "porto", "portugal"
     ];
-    
+
     private readonly ISemanticKernelService _semanticKernelService;
-    
-    private string? _location;
+    private readonly IVectorDbService _dbService;
     private readonly ILogger _logger;
 
-    public ChatService(ILogger<ChatService> logger, ISemanticKernelService semanticKernelService)
+    private string? _location;
+
+    public ChatService(
+        ILogger<ChatService> logger,
+        ISemanticKernelService semanticKernelService,
+        IVectorDbService dbService)
     {
         _logger = logger;
         _semanticKernelService = semanticKernelService;
+        _dbService = dbService;
     }
 
     public async Task<string> GetInitialResponse(string initialInput)
@@ -43,12 +49,23 @@ public class ChatService : IChatService
             ? $"Location: {_location}"
             : "Location couldn't be found");
 
-        var recommendations = await _semanticKernelService.GetRecommendationsForLocationAsync(_location);
+        var searchResults = location != null 
+            ? await _dbService.SearchRecommendationsAsync(initialInput, location) 
+            : await _dbService.SearchRecommendationsAsync(initialInput);
+        
+        var stringBuilder = new StringBuilder();
+        
+        foreach (var res in searchResults)
+        {
+            stringBuilder.AppendLine(res.Text);
+        }
 
-        Console.WriteLine("Information: \n" + recommendations);
+        var context = stringBuilder.Length == 0 ? null : stringBuilder.ToString();
+        
+        Console.WriteLine("Information: \n" + context);
 
         var prompt = $"""
-                        Information: \n {recommendations}
+                        Information: \n {context}
                         Question: {initialInput}
                         
                         Answer the question according to the information above ONLY!
