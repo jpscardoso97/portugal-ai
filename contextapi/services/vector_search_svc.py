@@ -26,7 +26,7 @@ class VectorSearchService:
         query_filter = None if location is None else f"location == '{location}'"
 
         try:
-            search_res = self.client.search(\
+            search_res = self.client.search(
                 collection_name=COLLECTION_NAME,  # target collection
                 data=query_vectors,  # query vectors
                 filter=query_filter,  # filter results

@@ -10,9 +10,5 @@ async def root():
     return {"message": "Hello World"}
 
 @app.get("/search")
-async def search(query: str, location: str, search_svc=Depends(VectorSearchService)):
-    return search_svc.search_vector(query, location)
-
-@app.post("/search")
-async def search(query: str, location: str, search_svc=Depends(VectorSearchService)):
+async def search(query: str, location: str = None, search_svc=Depends(VectorSearchService)):
     return search_svc.search_vector(query, location)
