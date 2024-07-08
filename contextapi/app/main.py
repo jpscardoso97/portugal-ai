@@ -1,4 +1,4 @@
-from contextapi.services.vector_search_svc import VectorSearchService
+from app.services.vector_search_svc import VectorSearchService
 
 from fastapi import FastAPI, Depends
 

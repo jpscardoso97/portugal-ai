@@ -7,7 +7,7 @@
     ports:
       - "5001:8080"
     networks:
-      - back-tier
+      - backend
     depends_on:
       - api
   api:
@@ -15,9 +15,7 @@
     build:
       context: contextapi
       dockerfile: Dockerfile
-    ports:
-      - "5002:80"
     networks:
-      - back-tier
+      - backend
 networks:
   backend: {}

@@ -5,19 +5,20 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy the requirements file into the container at /app
-COPY requirements.txt .
+COPY requirements.txt /app/requirements.txt
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy the current directory contents into the container at /app
-COPY . .
+COPY ./app /app
+
+COPY bootstrap_db.py /app
 
 # Run the database bootstrap script
 RUN python bootstrap_db.py
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
+EXPOSE 5002
 
 # Run uvicorn server on container startup
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["fastapi", "run", "main.py", "--port", "5002"]

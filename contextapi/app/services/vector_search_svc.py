@@ -1,5 +1,5 @@
 import os
-from contextapi.models.search_result import SearchResult
+from app.models.search_result import SearchResult
 from pymilvus import MilvusClient, model
 
 COLLECTION_NAME = "portugal_ai"
