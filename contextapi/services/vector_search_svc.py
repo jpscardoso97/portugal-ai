@@ -20,12 +20,11 @@ class VectorSearchService:
         print(f"Query: {query}")
         print(f"Location: {location}")
 
-        #query_vectors = self.embedding_fn.encode_queries([query])
-        query_vectors = self.embedding_fn.encode_queries(["I'm looking for a francesinha, where should I eat?"])
-
-        query_filter = None if location is None else f"location == '{location}'"
-
         try:
+            query_vectors = self.embedding_fn.encode_queries([query])
+        
+            query_filter = None if location is None else f"location == '{location}'"
+
             search_res = self.client.search(
                 collection_name=COLLECTION_NAME,  # target collection
                 data=query_vectors,  # query vectors
