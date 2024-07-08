@@ -68,3 +68,6 @@ ScaffoldingReadMe.txt
 *.vspx
 *.mdb
 
+# Pyhton
+__pycache__/
+*.pyc

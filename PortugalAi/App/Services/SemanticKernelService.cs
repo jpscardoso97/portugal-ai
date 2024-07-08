@@ -2,8 +2,6 @@ namespace App.Services;
 
 using Extensions;
 using Interfaces;
-using Plugins;
-
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
@@ -25,14 +23,11 @@ public class SemanticKernelService : ISemanticKernelService
 
     private readonly ChatHistory _chatHistory = new(SystemMessage);
 
-    public SemanticKernelService(ILogger<SemanticKernelService> logger, IKernelBuilder kernelBuilder)
+    public SemanticKernelService(ILogger<SemanticKernelService> logger, IKernelBuilder kernelBuilder, IVectorDbService dbService)
     {
         _logger = logger;
         _kernel = kernelBuilder.Build();
-        _kernel.ImportPluginFromType<RecommenderPlugin>();
-        // Create a template for chat with settings
-        _locationFunction = _kernel.GetLocationFunction();
-        //_prompts = _kernel.ImportPluginFromPromptDirectory("Prompts");   
+        _locationFunction = _kernel.GetLocationFunction(); 
         _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
     }
 
@@ -65,16 +60,5 @@ public class SemanticKernelService : ISemanticKernelService
         );
 
         return l?.Split('<')[0].ToLowerInvariant();
-    }
-
-    public async Task<string?> GetRecommendationsForLocationAsync(string location)
-    {
-        return await _kernel.InvokeAsync<string>("RecommenderPlugin",
-            "GetRecommendations",
-            new()
-            {
-                { "location", location }
-            }
-        );
     }
 }
