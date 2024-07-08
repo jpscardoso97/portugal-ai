@@ -4,7 +4,6 @@ using HttpClients.Interfaces;
 using Dto;
 using Interfaces;
 
-
 public class VectorDbService : IVectorDbService
 {
     private readonly IVectorDbHttpClient _client;

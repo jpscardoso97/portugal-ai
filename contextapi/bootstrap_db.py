@@ -46,7 +46,7 @@ res = client.insert(collection_name=COLLECTION_NAME, data=data)
 print("Testing database search...")
 query_vectors = embedding_fn.encode_queries(["I'm looking for a francesinha, where should I eat?"])
 
-res = client.search(\
+res = client.search(
     collection_name=COLLECTION_NAME,  # target collection
     data=query_vectors,  # query vectors
     filter="location == 'braga'",  # filter results

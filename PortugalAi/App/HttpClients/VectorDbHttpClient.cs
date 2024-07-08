@@ -1,4 +1,3 @@
-
 namespace App.HttpClients;
 
 using System.Net.Http;
@@ -10,13 +9,16 @@ using Interfaces;
 
 public class VectorDbHttpClient : IVectorDbHttpClient
 {
+    private const string dbHost = "http://host.docker.internal:8000/";
+    //private const string dbHost = "http://localhost:8000/";
+
     private readonly HttpClient _httpClient;
 
     public VectorDbHttpClient()
     {
         _httpClient = new()
         {
-            BaseAddress = new("http://localhost:8000/")
+            BaseAddress = new(dbHost),
         };
     }
 
@@ -36,6 +38,5 @@ public class VectorDbHttpClient : IVectorDbHttpClient
         var content = await response.Content.ReadAsStringAsync();
 
         return JsonSerializer.Deserialize<IEnumerable<VectorDbSearchResult>>(content) ?? Array.Empty<VectorDbSearchResult>();
-
     }
 }
