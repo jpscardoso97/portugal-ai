@@ -9,7 +9,8 @@ using Interfaces;
 
 public class VectorDbHttpClient : IVectorDbHttpClient
 {
-    private const string dbHost = "http://host.docker.internal:8000/";
+    private const string dbHost = "http://api:5002/";
+    //private const string dbHost = "http://host.docker.internal:5002/";
     //private const string dbHost = "http://localhost:8000/";
 
     private readonly HttpClient _httpClient;

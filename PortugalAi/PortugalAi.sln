@@ -4,7 +4,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6B1F9308-2E9D-4CB9-A153-79949C9B69D1}"
 	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
+		..\docker-compose.yml = ..\docker-compose.yml
+		Dockerfile = Dockerfile
+		.dockerignore = .dockerignore
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Test", "App.Test\App.Test.csproj", "{AFB7C924-4645-403F-ABF7-EE39899E4131}"

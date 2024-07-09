@@ -3,16 +3,16 @@ from unittest.mock import patch, MagicMock
 import sys
 import os
 
-# Add the directory containing 'contextapi' to the Python path
+# Add the directory containing 'app' to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from contextapi.services.vector_search_svc import VectorSearchService
-from contextapi.models.search_result import SearchResult
+from app.services.vector_search_svc import VectorSearchService
+from app.models.search_result import SearchResult
 
 @pytest.fixture
 def mock_services():
-    with patch('contextapi.services.vector_search_svc.MilvusClient') as MockMilvusClient, \
-         patch('contextapi.services.vector_search_svc.model.dense.SentenceTransformerEmbeddingFunction') as MockEmbeddingFunction:
+    with patch('app.services.vector_search_svc.MilvusClient') as MockMilvusClient, \
+         patch('app.services.vector_search_svc.model.dense.SentenceTransformerEmbeddingFunction') as MockEmbeddingFunction:
         mock_client = MockMilvusClient.return_value
         mock_embedding_fn = MockEmbeddingFunction.return_value
         service = VectorSearchService()

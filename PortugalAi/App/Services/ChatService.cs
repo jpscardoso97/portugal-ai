@@ -7,7 +7,7 @@ public class ChatService : IChatService
 {
     private static readonly string[] ValidLocations =
     [
-        "aveiro", "porto", "portugal"
+        "aveiro", "alentejo", "algarve", "azores", "braga", "braganca", "covilha", "coimbra", "funchal", "guimaraes", "leiria", "lisbon", "porto", "portugal", "santarem", "vila real", "viseu", 
     ];
 
     private readonly ISemanticKernelService _semanticKernelService;
@@ -40,6 +40,7 @@ public class ChatService : IChatService
         }
         else
         {
+            // Improve comparison (clean extracted location string before search)
             location = ValidLocations.FirstOrDefault(l => location.Contains(l));
         }
 
