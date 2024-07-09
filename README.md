@@ -3,6 +3,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/jpscardoso97/portugal-ai/badge)](https://www.codefactor.io/repository/github/jpscardoso97/portugal-ai)
 [![.NET App Pipeline](https://github.com/jpscardoso97/portugal-ai/actions/workflows/dotnet.yml/badge.svg)](https://github.com/jpscardoso97/portugal-ai/actions/workflows/dotnet.yml)
 [![Python API](https://github.com/jpscardoso97/portugal-ai/actions/workflows/python.yml/badge.svg)](https://github.com/jpscardoso97/portugal-ai/actions/workflows/python.yml)
+[![Docker Build](https://github.com/jpscardoso97/portugal-ai/actions/workflows/docker.yml/badge.svg)](https://github.com/jpscardoso97/portugal-ai/actions/workflows/docker.yml)
 
 ## Project Description
 
@@ -11,9 +12,11 @@ Using a chatbot-like interface, the user can ask for suggestions based on their 
 
 ## System Architecture
 
-TODO
+<img width="823" alt="arch" src="https://github.com/jpscardoso97/portugal-ai/assets/29354431/72ca91df-384e-46a3-970a-4d3d71aa8c51">
 
 ## Usage examples/screenshots
+
+![example](https://github.com/jpscardoso97/portugal-ai/assets/29354431/40eab1a9-24ec-444a-b783-a62c802806e0)
 
 ## How to run
 - Clone the repository
@@ -26,20 +29,21 @@ TODO
   ```
   ./Meta-Llama-3-8B-Instruct.Q5_K_M.llamafile
   ```
-- Populate local vector database by running `populate-db.ipynb` notebook inside `/contextapi` folder
-- Run .NET app and Python API building and running docker-compose in the repo root folder:
+- Run application by running docker-compose in the repo root folder. This will run both app containers and bootstrap the vector database automatically:
   ```
   docker-compose up
   ```
-- Access the app at `http://localhost:5000`
+- Access the app user interface at `http://localhost:5001`
 
 ## Performance/Evaluation
+
+TBD
 
 ## CI/CD
 There are three pipelines in this project:
 - [.NET App Pipeline](https://github.com/jpscardoso97/portugal-ai/actions/workflows/dotnet.yml): builds and tests the .NET main application.
 - [Python API Pipeline](https://github.com/jpscardoso97/portugal-ai/actions/workflows/python.yml): builds and tests the Python RAG API.
-- [Docker Pipeline](): builds and deploys the necessary Docker images.
+- [Docker Pipeline](https://github.com/jpscardoso97/portugal-ai/actions/workflows/docker.yml): builds and pushes app's Docker images to Dockerhub.
 
 Additionally, the repository is analysed by [CodeFactor](https://www.codefactor.io/repository/github/jpscardoso97/portugal-ai) which performs static code analysis on every commit. Currently configured tools:
 - Hadolint: AST-based linter for building best practice Docker images.
