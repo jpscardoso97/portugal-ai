@@ -51,21 +51,22 @@ Here are the results:
 
 For the system accuracy performance evaluation, it was compared against the original LLM (Llama-3 8B without RAG), ChatGpt-4o and Claude 3.5 Sonnet.
 The overall result was very satisfactory for the implemented system. It outperforms all the competitors because of it's capacity to use curated content as context to its responses. Even though the SOTA chat models provided richer responses, most of the information in such responses was not accurate (specially for locations that are not big cities like Porto or Lisbon). Most of the recommended restaurants in medium/small sized cities like Aveiro or Coimbra either don't exist, are innacurately described or are not located in the location the model says it is.   
-To measure and compare such accuracy, a scoring system was used against a set of 10 questions about 5 different locations that are in the valid in Portugal AI (meaning that they are included in the system's vector database). The score for each response goes from 1-4 being 1 a totally innacurate response (restaurants don't exist or have no relation to the question), to 4 which is a perfect recommendation (the restaurant/s exist, are in the correct location and well described/according to the question).  
+To measure and compare such accuracy, a scoring system was used against a set of 10 questions about 5 different locations that are in the valid in Portugal AI (meaning that they are included in the system's vector database). The score for each response goes from 1-4 being 1 a totally innacurate response (restaurants don't exist or have no relation to the question) or refuses to respond, to 4 which is a perfect recommendation (the restaurant/s exist, are in the correct location and well described/according to the question).  
 The results are detailed in the table below:
 
-| Location | Query                                                                        | Portugal AI | Llama-3 8B | ChatGPT-4o | Claude 3.5 Sonnet |
-|----------|------------------------------------------------------------------------------|-------------|------------|------------|-------------------|
-| Aveiro   | Where should I eat in Aveiro?                                                |             |            |            |                   |
-| Aveiro   | What are the recommended restaurants in Aveiro to eat Sushi?                 |             |            |            |                   |
-| Porto    | Where should I eat in Porto?                                                 |             |            |            |                   |
-| Porto    | What are the recommended restaurants in Aveiro to eat Francesinha?           |             |            |            |                   |
-| Lisbon   | Where should I eat in Lisbon?                                                |             |            |            |                   |
-| Lisbon   | What are the recommended restaurants in Lisbon to eat Brazilian food?        |             |            |            |                   |
-| Coimbra  | Where should I eat in Coimbra?                                               |             |            |            |                   |
-| Coimbra  | What are the recommended restaurants in Coimbra to eat local dishes?         |             |            |            |                   |
-| Viseu    | Where should I eat in Viseu?                                                 |             |            |            |                   |
-| Viseu    | Can you suggest a cosy restaurant with portuguese traditional food in Viseu? |             |            |            |                   |
+|        | Location | Query                                                                        | Portugal AI | Llama-3 8B | ChatGPT-4o | Claude 3.5 Sonnet |
+|--------|----------|------------------------------------------------------------------------------|-------------|------------|------------|-------------------|
+|   -    | Aveiro   | Where should I eat in Aveiro?                                                |             |    1.0     |     4.0    |        4.0        |
+|   -    | Aveiro   | What are the recommended restaurants in Aveiro to eat Sushi?                 |             |    1.0     |     3.5    |        1.0        |
+|   -    | Porto    | Where should I eat in Porto?                                                 |             |    4.0     |     3.5    |        4.0        |
+|   -    | Porto    | What are the recommended restaurants in Porto to eat Francesinha?            |             |    2.5     |     4.0    |        3.5        |
+|   -    | Lisbon   | Where should I eat in Lisbon?                                                |             |    3.5     |     4.0    |        4.0        |
+|   -    | Lisbon   | What are the recommended restaurants in Lisbon to eat Brazilian food?        |             |    1.5     |     3.5    |        2.0        |
+|   -    | Coimbra  | Where should I eat in Coimbra?                                               |             |    2.5     |     3.5    |        4.0        |
+|   -    | Coimbra  | What are the recommended restaurants in Coimbra to eat local dishes?         |             |    1.0     |     4.0    |        4.0        |
+|   -    | Viseu    | Where should I eat in Viseu?                                                 |             |    1.0     |     4.0    |        1.0        |
+|   -    | Viseu    | Can you suggest a cosy restaurant with portuguese traditional food in Viseu? |             |    1.0     |     4.0    |        1.0        |
+| Total  |          |                                                                              |             |    19.0    |     38.0   |        28.0         |
 
 ## CI/CD
 There are three pipelines in this project:
