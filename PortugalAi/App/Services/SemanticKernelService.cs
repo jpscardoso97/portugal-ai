@@ -23,7 +23,7 @@ public class SemanticKernelService : ISemanticKernelService
 
     private readonly ChatHistory _chatHistory = new(SystemMessage);
 
-    public SemanticKernelService(ILogger<SemanticKernelService> logger, IKernelBuilder kernelBuilder, IVectorDbService dbService)
+    public SemanticKernelService(ILogger<SemanticKernelService> logger, IKernelBuilder kernelBuilder)
     {
         _logger = logger;
         _kernel = kernelBuilder.Build();

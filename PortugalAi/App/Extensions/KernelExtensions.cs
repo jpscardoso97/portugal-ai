@@ -5,6 +5,8 @@ namespace App.Extensions;
 
 public static class KernelExtensions
 {
+    private const string Locations = "alentejo, algarve, aveiro, azores, braga, braganca, coimbra, covilha, funchal, guimaraes, leiria, lisbon, porto, santarem, vila_real, viseu";
+    
     public static KernelFunction GetLocationFunction(this Kernel kernel)
     {
         return kernel.CreateFunctionFromPrompt(
@@ -12,21 +14,15 @@ public static class KernelExtensions
             {
                 Name = "GetLocation",
                 Description = "Extract location from user prompt.",
-                Template = @"
-                    <message role=""system"">Identify the portuguese location</message>
+                Template = $@"
+                    <message role=""system"">Extract the location from the user input. Choose one of the following values: {Locations}</message>
 
                     For example: 
 
                     <message role=""user"">I'm in Porto, where should I eat?</message>
-                    <message role=""assistant"">Porto</message>
+                    <message role=""assistant"">porto</message>
 
-                    <message role=""user"">What should I visit?</message>
-                    <message role=""assistant"">null</message>
-
-                    <message role=""user"">What are some of the best dishes in the north?</message>
-                    <message role=""assistant"">North</message>
-
-                    <message role=""user"">{{$input}}</message>",
+                    <message role=""user"">{{{{$input}}}}</message>",
                 TemplateFormat = "semantic-kernel",
                 InputVariables =
                 [
