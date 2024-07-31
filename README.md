@@ -16,7 +16,7 @@ Using a chatbot-like interface, the user can ask for suggestions based on their 
 
 ## Usage examples/screenshots
 
-![example](https://github.com/jpscardoso97/portugal-ai/assets/29354431/40eab1a9-24ec-444a-b783-a62c802806e0)
+![demo](https://github.com/user-attachments/assets/a27f5907-7fce-4b4b-8ab9-90813a7618d2)
 
 ## How to run
 - Clone the repository
