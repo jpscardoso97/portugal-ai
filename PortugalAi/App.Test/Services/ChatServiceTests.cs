@@ -87,7 +87,7 @@ public class ChatServiceTests
         _semanticKernelServiceMock.Verify(s => s.GetCompletionAsync(It.IsAny<string>()), Times.Once);
         _loggerMock.Verify(
             x => x.Log(
-                LogLevel.Error,
+                LogLevel.Warning,
                 It.IsAny<EventId>(),
                 It.Is<It.IsAnyType>((v, t) => true),
                 It.IsAny<Exception>(),

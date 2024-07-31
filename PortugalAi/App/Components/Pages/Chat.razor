@@ -7,6 +7,8 @@
 @inject IChatService IChatService
 @inject NavigationManager Navigation
 
+<PageTitle>Chat</PageTitle>
+
 <h1>Portugal AI Chatbot</h1>
 
 <div>
@@ -16,10 +18,10 @@
     <textarea @bind="_inputMessage" placeholder="How can I help you?" class="chat-input"></textarea>
     @if (_loading)
     {
-        <button disabled="disabled" class="btn btn-primary">Generating response</button>
+        <button disabled="disabled" class="btn btn-primary">Getting your recommendations</button>
     }
     else{
-        <button class="btn btn-primary" @onclick="SendMessage">Click me</button>
+        <button class="btn btn-primary" @onclick="SendMessage">Ask!</button>
     }
 </div>
 

@@ -5,7 +5,7 @@ using Interfaces;
 
 public class ChatService : IChatService
 {
-    private static readonly string[] ValidLocations =
+    private static readonly IEnumerable<string> ValidLocations =
     [
         "aveiro", "alentejo", "algarve", "azores", "braga", "braganca", "covilha", "coimbra", "funchal", "guimaraes", "leiria", "lisbon", "porto", "portugal", "santarem", "vila real", "viseu", 
     ];
@@ -29,29 +29,25 @@ public class ChatService : IChatService
     public async Task<string> GetInitialResponse(string initialInput)
     {
         var location = await _semanticKernelService.ExtractLocationFromInputAsync(initialInput);
+        
+        _logger.LogDebug("Extracted location: "+location);
+        
+        var l = ValidLocations.FirstOrDefault(l => location == l);
 
-        // TODO: Validate location
-        if (string.IsNullOrWhiteSpace(location))
+        if (!string.IsNullOrWhiteSpace(l))
         {
-            _logger.LogError(
-                message: "Error extracting location from user query: {initialInput}. Extracted: {location}",
-                initialInput, location);
-            location = null;
+            _logger.LogInformation($"Location: {l}");
         }
         else
         {
-            // Improve comparison (clean extracted location string before search)
-            location = ValidLocations.FirstOrDefault(l => location.Contains(l));
+            _logger.LogWarning($"Location couldn't be found, using from context: {_location}");
         }
 
-        _location = location;
+        if (l != null)
+            _location = l;
 
-        Console.WriteLine(!string.IsNullOrWhiteSpace(_location)
-            ? $"Location: {_location}"
-            : "Location couldn't be found");
-
-        var searchResults = location != null 
-            ? await _dbService.SearchRecommendationsAsync(initialInput, location) 
+        var searchResults = _location != null 
+            ? await _dbService.SearchRecommendationsAsync(initialInput, _location) 
             : await _dbService.SearchRecommendationsAsync(initialInput);
         
         var stringBuilder = new StringBuilder();
