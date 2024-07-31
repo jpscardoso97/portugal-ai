@@ -34,9 +34,14 @@ public class ChatService : IChatService
         
         var l = ValidLocations.FirstOrDefault(l => location == l);
 
-        Console.WriteLine(!string.IsNullOrWhiteSpace(l)
-            ? $"Location: {l}"
-            : $"Location couldn't be found, using from context: {_location}");
+        if (!string.IsNullOrWhiteSpace(l))
+        {
+            _logger.LogInformation($"Location: {l}");
+        }
+        else
+        {
+            _logger.LogWarning($"Location couldn't be found, using from context: {_location}");
+        }
 
         if (l != null)
             _location = l;
