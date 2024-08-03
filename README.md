@@ -37,18 +37,21 @@ Using a chatbot-like interface, the user can ask for suggestions based on their 
 
 ## Performance/Evaluation
 
+### Speed Test 
 The speed performance of the application was measured by calculating the average response time of the system for a series of pre-defined prompts.  
+
 Here are the results:  
 
-| Query | Avg. Response Time |
-|-------|--------------------|
-| 1     |                    |
-| 2     |                    |
-| 3     |                    |
-| 4     |                    |
-| 5     |                    |
-| 6     |                    |
+|              Query                |   Avg. Response Time (ms) |
+|-----------------------------------|---------------------------|
+|  1  - Short and Valid Location    |           15371           |
+|  2  - Short and Invalid Location  |           12122           |
+|  3  - Long and Valid Location     |           15474           |
+|  4  - Long and Invalid Location   |           19019           |
+|  5  - Random Prompt               |           10418           |
+|             Global                |           14481           |
 
+### Accuracy Test 
 For the system accuracy performance evaluation, it was compared against the original LLM (Llama-3 8B without RAG), ChatGpt-4o and Claude 3.5 Sonnet.
 The overall result was very satisfactory for the implemented system. It outperforms all the competitors except ChatGPT-4o because of it's capacity to use curated content as context to its responses. Even though the SOTA chat models provide richer responses, most of the information in such responses is not accurate (specially for locations that are not big cities like Porto or Lisbon). Most of the recommended restaurants in medium/small sized cities like Aveiro or Coimbra either don't exist, are innacurately described or are not located where the model says they are.   
 To measure and compare such accuracy, a scoring system was used against a set of 10 questions about 5 different locations that are supported by Portugal AI (meaning that they are included in the system's vector database). The score for each response goes from 1-4 being 1 a totally innacurate response (restaurants don't exist or have no relation to the question) or refuses to respond, to 4 which is a perfect recommendation (the restaurant/s exist/s, are in the correct location, and are well described/according to the question).   
