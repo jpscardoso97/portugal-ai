@@ -38,7 +38,7 @@ public class ChatServiceTests
     }
 
     [Fact]
-    public async Task GetInitialResponse_ValidLocation_ReturnsCleanResponse()
+    public async Task GetResponseAsync_ValidLocation_ReturnsCleanResponse()
     {
         // Arrange
         string initialInput = "Tell me about Aveiro";
@@ -54,7 +54,7 @@ public class ChatServiceTests
             .ReturnsAsync(rawCompletion);
 
         // Act
-        var result = await _chatService.GetInitialResponse(initialInput);
+        var result = await _chatService.GetResponseAsync(initialInput);
 
         // Assert
         Assert.Equal(cleanCompletion, result);
@@ -64,7 +64,7 @@ public class ChatServiceTests
     }
 
     [Fact]
-    public async Task GetInitialResponse_InvalidLocation_LogsErrorAndReturnsResponse()
+    public async Task GetResponseAsync_InvalidLocation_LogsErrorAndReturnsResponse()
     {
         // Arrange
         string initialInput = "Tell me about a non-existent place";
@@ -78,7 +78,7 @@ public class ChatServiceTests
             .ReturnsAsync(completion);
 
         // Act
-        var result = await _chatService.GetInitialResponse(initialInput);
+        var result = await _chatService.GetResponseAsync(initialInput);
 
         // Assert
         Assert.Equal(completion, result);
