@@ -16,6 +16,8 @@ Using a chatbot-like interface, the user can ask for suggestions based on their 
 
 ## Usage examples/screenshots
 
+Here you can find a shor video demo of the running app: [https://youtu.be/LTXbHD9-N2c](https://youtu.be/LTXbHD9-N2c)
+
 ![demo](https://github.com/user-attachments/assets/a27f5907-7fce-4b4b-8ab9-90813a7618d2)
 
 ## How to run
