@@ -28,7 +28,7 @@ builder.Services
 
         return kb;
     })
-    .AddControllers();;
+    .AddControllers();
     
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

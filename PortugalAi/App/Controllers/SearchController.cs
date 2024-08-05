@@ -12,5 +12,4 @@ public class SearchController(IChatService chatService)
     {
         return await chatService.GetResponseAsync(query);
     }
-    
 }
