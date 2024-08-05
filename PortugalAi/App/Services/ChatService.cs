@@ -26,9 +26,9 @@ public class ChatService : IChatService
         _dbService = dbService;
     }
 
-    public async Task<string> GetInitialResponse(string initialInput)
+    public async Task<string> GetResponseAsync(string input)
     {
-        var location = await _semanticKernelService.ExtractLocationFromInputAsync(initialInput);
+        var location = await _semanticKernelService.ExtractLocationFromInputAsync(input);
         
         _logger.LogDebug("Extracted location: "+location);
         
@@ -47,8 +47,8 @@ public class ChatService : IChatService
             _location = l;
 
         var searchResults = _location != null 
-            ? await _dbService.SearchRecommendationsAsync(initialInput, _location) 
-            : await _dbService.SearchRecommendationsAsync(initialInput);
+            ? await _dbService.SearchRecommendationsAsync(input, _location) 
+            : await _dbService.SearchRecommendationsAsync(input);
         
         var stringBuilder = new StringBuilder();
         
@@ -63,7 +63,7 @@ public class ChatService : IChatService
 
         var prompt = $"""
                         Information: \n {context}
-                        Question: {initialInput}
+                        Question: {input}
                         
                         Answer the question according to the information above ONLY!
                       """;

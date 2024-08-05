@@ -27,7 +27,8 @@ builder.Services
             httpClient: new(new LlmHttpRequestHandler()));
 
         return kb;
-    });
+    })
+    .AddControllers();;
     
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -49,5 +50,7 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App.Components.App>()
     .AddInteractiveServerRenderMode();
+
+app.MapControllers();
 
 app.Run();

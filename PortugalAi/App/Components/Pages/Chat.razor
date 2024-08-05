@@ -37,7 +37,7 @@
     private async Task SendMessage()
     {
         _loading = true;
-        var response = await IChatService.GetInitialResponse(_inputMessage);
+        var response = await IChatService.GetResponseAsync(_inputMessage);
         _loading = false;
         
         _conversation.AppendLine("Question: " + _inputMessage);
